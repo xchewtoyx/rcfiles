@@ -1,0 +1,3 @@
+/load ~/bin/screen_away.pl
+/load ~/bin/tmux_away.pl
+/load ~/bin/hilightwin.pl
