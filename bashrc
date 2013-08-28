@@ -15,6 +15,8 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export HISTSIZE=2147483647
+export HISTFILESIZE=2147483647
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -70,9 +72,9 @@ esac
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -81,7 +83,7 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
+    alias grep='grep --color=auto'
     #alias fgrep='fgrep --color=auto'
     #alias egrep='egrep --color=auto'
 fi
@@ -98,10 +100,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-if [ -f "$HOME/.bash_aliases" ]; then
-    . $HOME/.bash_aliases
-fi
-
+# If .bashrc.d exists, source each file into the current shell
 if [ -d "$HOME/.bashrc.d" ]; then
   for rcfile in $HOME/.bashrc.d/*; do
     if [ -x "$rcfile" ]; then
@@ -110,7 +109,12 @@ if [ -d "$HOME/.bashrc.d" ]; then
   done
 fi
 
+# Use keychain to connect to any running secure agents
 keychain --timeout 600 -q
 if [ -d "$HOME/.keychain" -a -f "$HOME/.keychain/$(hostname -s)-sh" ]; then
   . "$HOME/.keychain/$(hostname -s)-sh"
 fi
+
+# Support python packages installed to home directory
+PYTHONPATH=$HOME/lib/python
+export PYTHONPATH
