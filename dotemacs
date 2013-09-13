@@ -1,6 +1,3 @@
-(or (boundp 'server-process)
-    (server-start))
-
 (require 'org-install)
 (load "~/org/org-init")
 (set 'inhibit-startup-screen t)
