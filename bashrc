@@ -109,6 +109,11 @@ if [ -d "$HOME/.bashrc.d" ]; then
   done
 fi
 
+# path extensions
+PATH=$PATH:$(python -c 'import sys;print sys.prefix')/bin
+PATH=$PATH:$HOME/bin:/opt/local/bin:$HOME/anaconda/bin
+export PATH
+
 # Use keychain to connect to any running secure agents
 keychain --timeout 600 -q
 if [ -d "$HOME/.keychain" -a -f "$HOME/.keychain/$(hostname -s)-sh" ]; then
@@ -118,3 +123,17 @@ fi
 # Support python packages installed to home directory
 PYTHONPATH=$HOME/lib/python
 export PYTHONPATH
+
+# Setup perl environment to support locally installed libraries
+eval $(perl -I ~/perl5/lib/perl5 -Mlocal::lib)
+
+# The next line updates PATH for the Google Cloud SDK.
+export PATH=/Users/russell/google-cloud-sdk/bin:$PATH
+
+# The next line enables bash completion for gcloud.
+source /Users/russell/google-cloud-sdk/arg_rc
+ 
+# Make sure the Emacs.app emacsclient is used rather than the system default
+export PATH=/Applications/Emacs.app/Contents/MacOS/bin:$PATH
+
+export SVN_EDITOR=emacsclient
