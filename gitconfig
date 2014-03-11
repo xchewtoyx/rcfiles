@@ -1,6 +1,14 @@
 [user]
 	name = Russell Heilling
-	email = russell@heilling.net
-	signingkey = dbee744d
+	email = russell@linx.net
+	signingkey = d9c48530
 [push]
         default = simple
+[core]
+	excludesfile = /Users/russell/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
